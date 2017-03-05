@@ -18,7 +18,7 @@ ModelDetection::ModelDetection(string &svm_file_name, string &vocabulary_file_na
 
 
 /*
-	@brief:
+	@brief: 
 
 	@returns:
 		- prediction::int

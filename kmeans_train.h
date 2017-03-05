@@ -19,13 +19,21 @@ using namespace cv::ml;
 class KMeansTrainer{
 
 public:
-	KMeansTrainer(){};
+	KMeansTrainer(std::string &train_path, int dictionary_size, int hessian_threshold);
 	bool train(std::string &modelpath);
+	void set_train_path(std::string &train_path);
 
 private:
+	Ptr<SURF> surf;
+	std::string train_path;
+	int dictionary_size;
+	int hessian_threshold;
+	int num_of_features = 0;
+	long current_date;
+	Mat dictionary;
+
+
 	bool writeVocabulary(const string& filename, const Mat& vocabulary);
 	void kmeanstrain_log(bool enabled);
-	Ptr<SURF> surf;
-	std::string &modelpath;
-	int dictionary_size;
+
 };
