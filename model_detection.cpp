@@ -5,13 +5,13 @@ ModelDetection::ModelDetection(){
 }
 
 // TODO: Check invalid files, and other conditions...
-ModelDetection::ModelDetection(string &svm_file_name, string &vocabulary_file_name){
+ModelDetection::ModelDetection(std::string &svm_file_name, std::string &vocabulary_file_name){
 	// Load SVM
-	svm = SVM::create();
-	svm = SVM::load<SVM>(svm_file_name);
+	svm = cv::ml::SVM::create();
+	svm = cv::ml::SVM::load<cv::ml::SVM>(svm_file_name);
 
 	// Load Dictionary
-	FileStorage fs(vocabulary_file_name, FileStorage::READ);
+	cv::FileStorage fs(vocabulary_file_name, cv::FileStorage::READ);
 	fs["vocabulary"] >> dictionary;
 	
 }
@@ -29,11 +29,11 @@ ModelDetection::ModelDetection(string &svm_file_name, string &vocabulary_file_na
 int ModelDetection::detect_model(){
 	
 	// Create surf and matcher
-	Ptr<DescriptorMatcher> matcher = new FlannBasedMatcher;
-	Ptr<SURF> surf = SURF::create(400);
+	cv::Ptr<cv::DescriptorMatcher> matcher = new cv::FlannBasedMatcher;
+	cv::Ptr<cv::xfeatures2d::SURF> surf = cv::xfeatures2d::SURF::create(400);
 
 	// Create bow_descriptor_extractor
-	BOWImgDescriptorExtractor bow_descriptor_extractor(surf, matcher);
+	cv::BOWImgDescriptorExtractor bow_descriptor_extractor(surf, matcher);
 	bow_descriptor_extractor.setVocabulary(dictionary);
 
 	// Predict input_image class
@@ -46,7 +46,7 @@ int ModelDetection::detect_model(){
 }
 
 
-void ModelDetection::set_image(Mat &image){
+void ModelDetection::set_image(cv::Mat &image){
 	input_image = image;
 }
 
