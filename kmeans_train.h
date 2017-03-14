@@ -10,12 +10,6 @@
 #include <stdio.h>
 #include <iostream>
 
-using namespace cv;
-using namespace std;
-using namespace cv::xfeatures2d;
-using namespace cv::ml;
-
-
 class KMeansTrainer{
 
 public:
@@ -24,16 +18,16 @@ public:
 	void set_train_path(std::string &train_path);
 
 private:
-	Ptr<SURF> surf;
+	Ptr<cv::xfeatures2d::SURF> surf;
 	std::string train_path;
 	int dictionary_size;
 	int hessian_threshold;
 	int num_of_features = 0;
 	long current_date;
-	Mat dictionary;
+	cv::Mat dictionary;
 
 
-	bool writeVocabulary(const string& filename, const Mat& vocabulary);
+	bool writeVocabulary(const std::string& filename, const cv::Mat& vocabulary);
 	void kmeanstrain_log(bool enabled);
 
 };
